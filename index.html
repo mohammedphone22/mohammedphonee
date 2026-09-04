@@ -1,1 +1,583 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<title>محمد فون | Mohammad Phone</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",Tahoma,sans-serif;
+}
+
+body{
+    background:#080808;
+    color:white;
+    min-height:100vh;
+    overflow-x:hidden;
+}
+
+/* BACKGROUND */
+#bgCanvas{
+    position:fixed;
+    inset:0;
+    width:100%;
+    height:100%;
+    z-index:0;
+}
+
+/* MAIN */
+.container{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:700px;
+    margin:auto;
+    padding:45px 20px;
+    text-align:center;
+}
+
+/* LOGO */
+.store-title{
+    font-size:clamp(42px,12vw,75px);
+    font-weight:900;
+    color:#ffd700;
+    text-shadow:
+        0 0 10px rgba(255,215,0,.5),
+        0 0 30px rgba(255,215,0,.35);
+    animation:logoGlow 2s infinite alternate;
+}
+
+.store-subtitle{
+    display:inline-block;
+    margin-top:5px;
+    padding:6px 20px;
+    border-bottom:2px solid #ffd700;
+    color:#eee;
+    font-size:15px;
+    letter-spacing:3px;
+}
+
+/* CARD */
+.card{
+    margin-top:35px;
+    padding:35px 25px;
+    border:1px solid rgba(255,215,0,.7);
+    border-radius:24px;
+    background:rgba(18,18,18,.88);
+    box-shadow:
+        0 15px 45px rgba(0,0,0,.7),
+        0 0 30px rgba(255,215,0,.12);
+    backdrop-filter:blur(10px);
+}
+
+.card h3{
+    color:#ffd700;
+    font-size:25px;
+    margin-bottom:18px;
+}
+
+.card p{
+    color:#ddd;
+    font-size:17px;
+    line-height:2;
+    margin-bottom:28px;
+}
+
+/* BUTTON */
+.btn{
+    border:0;
+    border-radius:50px;
+    padding:15px 28px;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    color:#080808;
+    background:linear-gradient(135deg,#ffd700,#fff09a,#ffd700);
+    box-shadow:0 8px 25px rgba(255,215,0,.25);
+    transition:.3s;
+}
+
+.btn:active{
+    transform:scale(.96);
+}
+
+/* SHOWCASE */
+#showcasePage{
+    display:none;
+    position:fixed;
+    inset:0;
+    z-index:10;
+    overflow-y:auto;
+    background:#080808;
+    padding:30px 18px 50px;
+}
+
+.showcase-content{
+    width:100%;
+    max-width:800px;
+    margin:auto;
+}
+
+.showcase-header{
+    text-align:center;
+    color:#ffd700;
+    font-size:30px;
+    margin-bottom:8px;
+}
+
+.showcase-description{
+    text-align:center;
+    color:#aaa;
+    margin-bottom:30px;
+    line-height:1.8;
+}
+
+/* VIDEO SECTION */
+.section-title{
+    color:#ffd700;
+    font-size:22px;
+    margin:30px 0 15px;
+    text-align:right;
+}
+
+.video-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:18px;
+}
+
+.video-card{
+    background:#151515;
+    border:1px solid rgba(255,215,0,.5);
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 8px 25px rgba(0,0,0,.5);
+}
+
+.video-card video{
+    width:100%;
+    display:block;
+    background:#000;
+}
+
+.video-info{
+    padding:15px;
+}
+
+.video-info h4{
+    color:#ffd700;
+    font-size:17px;
+    margin-bottom:7px;
+}
+
+.video-info p{
+    color:#aaa;
+    font-size:13px;
+    line-height:1.7;
+}
+
+/* ITEMS */
+.items-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:18px;
+}
+
+.item-box{
+    padding:25px 18px;
+    background:linear-gradient(145deg,#151515,#0e0e0e);
+    border:1px solid rgba(255,215,0,.45);
+    border-radius:18px;
+    text-align:center;
+}
+
+.item-icon{
+    font-size:40px;
+    margin-bottom:12px;
+}
+
+.item-box h4{
+    color:#ffd700;
+    font-size:19px;
+    margin-bottom:10px;
+}
+
+.item-box p{
+    color:#bbb;
+    font-size:14px;
+    line-height:1.8;
+}
+
+/* CONTACT */
+.contact-box{
+    margin-top:30px;
+    padding:25px;
+    text-align:center;
+    border:1px solid rgba(255,215,0,.5);
+    border-radius:20px;
+    background:#111;
+}
+
+.contact-box h3{
+    color:#ffd700;
+    margin-bottom:15px;
+}
+
+.contact-btn{
+    display:inline-block;
+    margin:7px;
+    padding:12px 20px;
+    border-radius:30px;
+    text-decoration:none;
+    color:#000;
+    background:#ffd700;
+    font-weight:bold;
+}
+
+/* BACK */
+.back-btn{
+    display:block;
+    margin:35px auto 0;
+    padding:13px 25px;
+    border:2px solid #ffd700;
+    background:transparent;
+    color:#ffd700;
+    border-radius:40px;
+    font-size:15px;
+    cursor:pointer;
+}
+
+/* ANIMATION */
+@keyframes logoGlow{
+    from{
+        transform:scale(1);
+    }
+    to{
+        transform:scale(1.04);
+    }
+}
+
+@media(max-width:500px){
+    .card{
+        padding:28px 18px;
+    }
+
+    .card h3{
+        font-size:22px;
+    }
+
+    .card p{
+        font-size:15px;
+    }
+
+    .showcase-header{
+        font-size:25px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<!-- MAIN PAGE -->
+<div class="container" id="mainPage">
+
+    <h1 class="store-title">محمد فون</h1>
+
+    <div class="store-subtitle">
+        MOHAMMAD PHONE
+    </div>
+
+    <div class="card">
+
+        <h3>بەخێربێن بۆ محمد فون</h3>
+
+        <p>
+            شوێنی متمانەپێکراوی تۆ بۆ ئەکسسواراتی مۆبایل،
+            خزمەتگوزارییەکانی سۆفتوێر و چارەسەرکردنی کێشەکانی مۆبایل
+            بە کوالێتی بەرز و نرخێکی گونجاو.
+        </p>
+
+        <button class="btn" onclick="openShowcase()">
+            ✨ بینینی ئەکسسوارات و ڤیدیۆکان
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- SHOWCASE PAGE -->
+<div id="showcasePage">
+
+<div class="showcase-content">
+
+    <h2 class="showcase-header">
+        محمد فون
+    </h2>
+
+    <p class="showcase-description">
+        ئەکسسوارات • سۆفتوێر • خزمەتگوزاری مۆبایل
+    </p>
+
+
+    <!-- VIDEOS -->
+    <h3 class="section-title">
+        🎬 ڤیدیۆکان
+    </h3>
+
+    <div class="video-list">
+
+        <div class="video-card">
+
+            <video controls playsinline muted loop>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-holding-smartphones-with-neon-lights-41584-large.mp4" type="video/mp4">
+            </video>
+
+            <div class="video-info">
+                <h4>📱 جیهانی مۆبایل</h4>
+                <p>
+                    جوانترین ڤیدیۆکان لەسەر مۆبایل و ئەکسسوارات.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="video-card">
+
+            <video controls playsinline muted loop>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-smartphone-with-a-colorful-screen-3984-large.mp4" type="video/mp4">
+            </video>
+
+            <div class="video-info">
+                <h4>✨ ئەکسسواراتی نوێ</h4>
+                <p>
+                    دیزاین و ئەکسسواراتی مۆدێرن بۆ مۆبایلەکان.
+                </p>
+            </div>
+
+        </div>
+
+
+        <div class="video-card">
+
+            <video controls playsinline muted loop>
+                <source src="https://assets.mixkit.co/videos/preview/mixkit-mobile-phone-in-a-dark-room-34335-large.mp4" type="video/mp4">
+            </video>
+
+            <div class="video-info">
+                <h4>🔥 تەکنەلۆژیای مۆبایل</h4>
+                <p>
+                    نوێترین شێواز و تەکنەلۆژیای مۆبایل.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ACCESSORIES -->
+    <h3 class="section-title">
+        🛍️ ئەکسسوارات
+    </h3>
+
+    <div class="items-grid">
+
+        <div class="item-box">
+            <div class="item-icon">📱</div>
+            <h4>کەڤەر و شلێف</h4>
+            <p>
+                کەڤەر و شلێفی جوان و بەهێز بۆ جۆرە جۆرە مۆبایل.
+            </p>
+        </div>
+
+        <div class="item-box">
+            <div class="item-icon">🔋</div>
+            <h4>پاتری و شارژەر</h4>
+            <p>
+                شارژەر و پاتری بە کوالێتی بەرز بۆ بەکارهێنانی ڕۆژانە.
+            </p>
+        </div>
+
+        <div class="item-box">
+            <div class="item-icon">🎧</div>
+            <h4>هێدفۆن و سپیکەر</h4>
+            <p>
+                هێدفۆن و سپیکەری مۆدێرن بۆ گۆرانی و ڤیدیۆ.
+            </p>
+        </div>
+
+        <div class="item-box">
+            <div class="item-icon">⚡</div>
+            <h4>کابڵ و ئەداپتەر</h4>
+            <p>
+                جۆرە جۆرە کابڵ و ئەداپتەری شارژکردن.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- SOFTWARE -->
+    <h3 class="section-title">
+        💻 خزمەتگوزارییەکان
+    </h3>
+
+    <div class="items-grid">
+
+        <div class="item-box">
+            <div class="item-icon">🛠️</div>
+            <h4>چاککردنی سۆفتوێر</h4>
+            <p>
+                چارەسەرکردنی کێشەکانی سۆفتوێر بە شێوازی پیشەیی.
+            </p>
+        </div>
+
+        <div class="item-box">
+            <div class="item-icon">🔧</div>
+            <h4>خزمەتگوزاری مۆبایل</h4>
+            <p>
+                خزمەتگوزارییە جۆراوجۆرەکانی مۆبایل بە کوالێتی بەرز.
+            </p>
+        </div>
+
+    </div>
+
+
+    <!-- CONTACT -->
+    <div class="contact-box">
+
+        <h3>📞 پەیوەندیمان پێوە بکە</h3>
+
+        <p style="color:#aaa;margin-bottom:15px;">
+            بۆ زانیاری زیاتر و نرخەکان پەیوەندیمان پێوە بکە.
+        </p>
+
+        <a href="tel:+9647500000000" class="contact-btn">
+            📞 پەیوەندی
+        </a>
+
+        <a href="https://wa.me/9647500000000" class="contact-btn">
+            💬 WhatsApp
+        </a>
+
+    </div>
+
+
+    <button class="back-btn" onclick="closeShowcase()">
+        ← گەڕانەوە بۆ پەڕەی سەرەکی
+    </button>
+
+</div>
+</div>
+
+
+<script>
+
+/* PAGE NAVIGATION */
+
+function openShowcase(){
+
+    document.getElementById("mainPage").style.display="none";
+
+    document.getElementById("showcasePage").style.display="block";
+
+}
+
+function closeShowcase(){
+
+    document.getElementById("showcasePage").style.display="none";
+
+    document.getElementById("mainPage").style.display="block";
+
+}
+
+
+/* GOLD PARTICLES */
+
+const canvas=document.getElementById("bgCanvas");
+
+const ctx=canvas.getContext("2d");
+
+let particles=[];
+
+function resizeCanvas(){
+
+    canvas.width=window.innerWidth;
+    canvas.height=window.innerHeight;
+
+}
+
+resizeCanvas();
+
+window.addEventListener("resize",resizeCanvas);
+
+
+for(let i=0;i<70;i++){
+
+    particles.push({
+
+        x:Math.random()*canvas.width,
+
+        y:Math.random()*canvas.height,
+
+        r:Math.random()*3+1,
+
+        speed:Math.random()*1.5+.3,
+
+        opacity:Math.random()*.7+.2
+
+    });
+
+}
+
+
+function animate(){
+
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+
+    particles.forEach(p=>{
+
+        ctx.globalAlpha=p.opacity;
+
+        ctx.fillStyle="#ffd700";
+
+        ctx.beginPath();
+
+        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+
+        ctx.fill();
+
+        p.y+=p.speed;
+
+        if(p.y>canvas.height){
+
+            p.y=-5;
+
+            p.x=Math.random()*canvas.width;
+
+        }
+
+    });
+
+    ctx.globalAlpha=1;
+
+    requestAnimationFrame(animate);
+
+}
+
+animate();
+
+</script>
+
+</body>
+</html>
