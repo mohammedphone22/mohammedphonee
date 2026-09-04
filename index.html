@@ -619,6 +619,33 @@ body{
 
 
 /* =========================
+   MUSIC CONTROL BUTTON (TOP RIGHT)
+========================= */
+
+.music-btn{
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ffd700;
+    color: #000;
+    border: none;
+    border-radius: 30px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 4px 15px rgba(255,215,0,0.5);
+    transition: 0.3s;
+}
+
+.music-btn:hover {
+    transform: translateY(-2px);
+    background: #ffea70;
+}
+
+
+/* =========================
    ANIMATION
 ========================= */
 
@@ -716,6 +743,15 @@ body{
 
 
 <body>
+
+<!-- CUSTOM LOCAL AUDIO -->
+<audio id="bgAudio" preload="auto" loop>
+    <source src="Fatima Alzobaidy – Belki - piano cover by Fatima Alzobaidy.mp3" type="audio/mp3">
+</audio>
+
+<button onclick="toggleMusic()" class="music-btn">
+    🎵 مۆسیقا: <span id="musicStatus">راوەستیایە</span>
+</button>
 
 
 <!-- =========================
@@ -1103,6 +1139,27 @@ body{
 
 
 <script>
+
+/* =====================================================
+   MUSIC CONTROL
+===================================================== */
+
+const bgAudio = document.getElementById("bgAudio");
+const musicStatus = document.getElementById("musicStatus");
+
+function toggleMusic() {
+    if (bgAudio.paused) {
+        bgAudio.play().then(() => {
+            musicStatus.innerText = "کارایە";
+        }).catch(error => {
+            console.log("Playback failed:", error);
+        });
+    } else {
+        bgAudio.pause();
+        musicStatus.innerText = "راوەستیایە";
+    }
+}
+
 
 /* =====================================================
    PAGE NAVIGATION
