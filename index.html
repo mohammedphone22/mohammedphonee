@@ -1,312 +1,765 @@
 <!DOCTYPE html>
 <html lang="ku" dir="rtl">
+
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>محمد فون | Mohammad Phone</title>
 
 <style>
+
+/* =========================
+   RESET
+========================= */
+
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:"Segoe UI",Tahoma,sans-serif;
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Tahoma,
+        sans-serif;
+}
+
+html,
+body{
+    width:100%;
+    min-height:100%;
 }
 
 body{
-    background:#080808;
-    color:white;
-    min-height:100vh;
+    background:#070707;
+    color:#fff;
     overflow-x:hidden;
 }
 
-/* BACKGROUND */
+
+/* =========================
+   GOLD PARTICLE BACKGROUND
+========================= */
+
 #bgCanvas{
     position:fixed;
     inset:0;
     width:100%;
     height:100%;
     z-index:0;
+    pointer-events:none;
 }
 
-/* MAIN */
+
+/* =========================
+   MAIN PAGE
+========================= */
+
 .container{
     position:relative;
     z-index:2;
+
     width:100%;
     max-width:700px;
+
+    min-height:100vh;
+
     margin:auto;
-    padding:45px 20px;
+    padding:60px 20px;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
     text-align:center;
 }
 
-/* LOGO */
+
+/* =========================
+   LOGO
+========================= */
+
 .store-title{
-    font-size:clamp(42px,12vw,75px);
+
+    font-size:clamp(45px,13vw,78px);
+
     font-weight:900;
+
     color:#ffd700;
+
+    letter-spacing:1px;
+
     text-shadow:
-        0 0 10px rgba(255,215,0,.5),
-        0 0 30px rgba(255,215,0,.35);
-    animation:logoGlow 2s infinite alternate;
+        0 0 10px rgba(255,215,0,.6),
+        0 0 25px rgba(255,215,0,.4),
+        0 0 55px rgba(255,215,0,.2);
+
+    animation:logoPulse 2.2s ease-in-out infinite alternate;
 }
 
 .store-subtitle{
+
     display:inline-block;
-    margin-top:5px;
+
+    margin-top:8px;
+
     padding:6px 20px;
+
+    color:#eeeeee;
+
+    font-size:14px;
+
+    letter-spacing:4px;
+
     border-bottom:2px solid #ffd700;
-    color:#eee;
-    font-size:15px;
-    letter-spacing:3px;
 }
 
-/* CARD */
+
+/* =========================
+   MAIN CARD
+========================= */
+
 .card{
-    margin-top:35px;
+
+    width:100%;
+
+    margin-top:38px;
+
     padding:35px 25px;
-    border:1px solid rgba(255,215,0,.7);
-    border-radius:24px;
-    background:rgba(18,18,18,.88);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(30,30,30,.94),
+            rgba(10,10,10,.94)
+        );
+
+    border:1px solid rgba(255,215,0,.65);
+
+    border-radius:25px;
+
     box-shadow:
-        0 15px 45px rgba(0,0,0,.7),
-        0 0 30px rgba(255,215,0,.12);
-    backdrop-filter:blur(10px);
+        0 20px 60px rgba(0,0,0,.75),
+        0 0 35px rgba(255,215,0,.12);
+
+    backdrop-filter:blur(12px);
 }
 
 .card h3{
+
     color:#ffd700;
+
     font-size:25px;
+
     margin-bottom:18px;
 }
 
 .card p{
-    color:#ddd;
-    font-size:17px;
+
+    color:#d6d6d6;
+
+    font-size:16px;
+
     line-height:2;
+
     margin-bottom:28px;
 }
 
-/* BUTTON */
+
+/* =========================
+   GOLD BUTTON
+========================= */
+
 .btn{
-    border:0;
+
+    border:none;
+
     border-radius:50px;
+
     padding:15px 28px;
+
     font-size:16px;
-    font-weight:bold;
+
+    font-weight:800;
+
     cursor:pointer;
+
     color:#080808;
-    background:linear-gradient(135deg,#ffd700,#fff09a,#ffd700);
-    box-shadow:0 8px 25px rgba(255,215,0,.25);
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd700,
+            #fff3a3,
+            #ffd700
+        );
+
+    box-shadow:
+        0 8px 30px rgba(255,215,0,.25);
+
     transition:.3s;
+
+    -webkit-tap-highlight-color:transparent;
+}
+
+.btn:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:
+        0 12px 35px rgba(255,215,0,.45);
 }
 
 .btn:active{
+
     transform:scale(.96);
 }
 
-/* SHOWCASE */
+
+/* =========================
+   SHOWCASE PAGE
+========================= */
+
 #showcasePage{
+
     display:none;
+
     position:fixed;
+
     inset:0;
+
     z-index:10;
+
+    width:100%;
+    height:100%;
+
     overflow-y:auto;
-    background:#080808;
-    padding:30px 18px 50px;
+
+    -webkit-overflow-scrolling:touch;
+
+    background:
+
+        radial-gradient(
+            circle at top,
+            rgba(255,215,0,.08),
+            transparent 35%
+        ),
+
+        #070707;
+
+    padding:
+        max(30px, env(safe-area-inset-top))
+        18px
+        max(50px, env(safe-area-inset-bottom));
 }
 
 .showcase-content{
+
     width:100%;
-    max-width:800px;
+
+    max-width:850px;
+
     margin:auto;
 }
 
+
+/* =========================
+   SHOWCASE HEADER
+========================= */
+
 .showcase-header{
+
     text-align:center;
+
     color:#ffd700;
-    font-size:30px;
+
+    font-size:clamp(28px,8vw,42px);
+
+    font-weight:900;
+
     margin-bottom:8px;
+
+    text-shadow:
+        0 0 20px rgba(255,215,0,.35);
 }
 
 .showcase-description{
+
     text-align:center;
-    color:#aaa;
-    margin-bottom:30px;
+
+    color:#999;
+
+    font-size:15px;
+
     line-height:1.8;
+
+    margin-bottom:32px;
 }
 
-/* VIDEO SECTION */
+
+/* =========================
+   SECTION TITLE
+========================= */
+
 .section-title{
+
     color:#ffd700;
+
     font-size:22px;
-    margin:30px 0 15px;
+
+    font-weight:800;
+
+    margin:
+        30px 0
+        15px;
+
+    padding-right:5px;
+
     text-align:right;
 }
 
+
+/* =========================
+   VIDEO GRID
+========================= */
+
 .video-list{
+
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:18px;
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(250px,1fr)
+        );
+
+    gap:20px;
 }
+
+
+/* =========================
+   VIDEO CARD
+========================= */
 
 .video-card{
-    background:#151515;
-    border:1px solid rgba(255,215,0,.5);
-    border-radius:18px;
+
     overflow:hidden;
-    box-shadow:0 8px 25px rgba(0,0,0,.5);
+
+    background:
+        linear-gradient(
+            145deg,
+            #191919,
+            #0d0d0d
+        );
+
+    border:1px solid rgba(255,215,0,.5);
+
+    border-radius:20px;
+
+    box-shadow:
+        0 12px 35px rgba(0,0,0,.55);
+
+    transition:.3s;
 }
+
+.video-card:hover{
+
+    transform:translateY(-4px);
+
+    border-color:#ffd700;
+
+    box-shadow:
+        0 15px 40px rgba(255,215,0,.15);
+}
+
+
+/* =========================
+   VIDEO
+========================= */
 
 .video-card video{
-    width:100%;
+
     display:block;
+
+    width:100%;
+
+    aspect-ratio:16 / 9;
+
+    object-fit:cover;
+
     background:#000;
+
+    /*
+       Important for iPhone Safari
+    */
+
+    -webkit-playsinline:true;
+
 }
 
+
+/* =========================
+   VIDEO INFO
+========================= */
+
 .video-info{
-    padding:15px;
+
+    padding:16px;
 }
 
 .video-info h4{
+
     color:#ffd700;
-    font-size:17px;
+
+    font-size:18px;
+
     margin-bottom:7px;
 }
 
 .video-info p{
+
     color:#aaa;
-    font-size:13px;
-    line-height:1.7;
+
+    font-size:14px;
+
+    line-height:1.8;
 }
 
-/* ITEMS */
+
+/* =========================
+   ACCESSORIES
+========================= */
+
 .items-grid{
+
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    grid-template-columns:
+        repeat(
+            auto-fit,
+            minmax(210px,1fr)
+        );
+
     gap:18px;
 }
 
 .item-box{
+
     padding:25px 18px;
-    background:linear-gradient(145deg,#151515,#0e0e0e);
-    border:1px solid rgba(255,215,0,.45);
-    border-radius:18px;
+
     text-align:center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #171717,
+            #0d0d0d
+        );
+
+    border:
+        1px solid
+        rgba(255,215,0,.4);
+
+    border-radius:19px;
+
+    box-shadow:
+        0 8px 25px rgba(0,0,0,.45);
+
+    transition:.3s;
+}
+
+.item-box:hover{
+
+    transform:translateY(-4px);
+
+    border-color:#ffd700;
 }
 
 .item-icon{
-    font-size:40px;
+
+    font-size:42px;
+
     margin-bottom:12px;
 }
 
 .item-box h4{
+
     color:#ffd700;
+
     font-size:19px;
+
     margin-bottom:10px;
 }
 
 .item-box p{
+
     color:#bbb;
+
     font-size:14px;
+
     line-height:1.8;
 }
 
-/* CONTACT */
+
+/* =========================
+   CONTACT
+========================= */
+
 .contact-box{
-    margin-top:30px;
-    padding:25px;
+
+    margin-top:32px;
+
+    padding:26px 20px;
+
     text-align:center;
-    border:1px solid rgba(255,215,0,.5);
-    border-radius:20px;
+
     background:#111;
+
+    border:
+        1px solid
+        rgba(255,215,0,.45);
+
+    border-radius:22px;
 }
 
 .contact-box h3{
+
     color:#ffd700;
+
+    font-size:21px;
+
+    margin-bottom:10px;
+}
+
+.contact-box p{
+
+    color:#aaa;
+
+    font-size:14px;
+
+    line-height:1.8;
+
     margin-bottom:15px;
 }
 
 .contact-btn{
+
     display:inline-block;
-    margin:7px;
-    padding:12px 20px;
-    border-radius:30px;
+
+    margin:5px;
+
+    padding:12px 21px;
+
+    border-radius:50px;
+
     text-decoration:none;
+
     color:#000;
+
     background:#ffd700;
-    font-weight:bold;
+
+    font-weight:800;
+
+    transition:.3s;
 }
 
-/* BACK */
+.contact-btn:hover{
+
+    transform:translateY(-2px);
+
+    background:#ffea70;
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
 .back-btn{
+
     display:block;
-    margin:35px auto 0;
-    padding:13px 25px;
-    border:2px solid #ffd700;
-    background:transparent;
+
+    margin:
+        35px
+        auto
+        0;
+
+    padding:13px 27px;
+
     color:#ffd700;
-    border-radius:40px;
+
+    background:transparent;
+
+    border:
+        2px solid
+        #ffd700;
+
+    border-radius:50px;
+
     font-size:15px;
+
+    font-weight:700;
+
     cursor:pointer;
+
+    transition:.3s;
 }
 
-/* ANIMATION */
-@keyframes logoGlow{
+.back-btn:hover{
+
+    background:#ffd700;
+
+    color:#000;
+}
+
+
+/* =========================
+   ANIMATION
+========================= */
+
+@keyframes logoPulse{
+
     from{
         transform:scale(1);
     }
+
     to{
-        transform:scale(1.04);
+        transform:scale(1.045);
     }
 }
 
+
+/* =========================
+   MOBILE
+========================= */
+
 @media(max-width:500px){
+
+    .container{
+
+        padding:
+            40px
+            17px;
+    }
+
     .card{
-        padding:28px 18px;
+
+        padding:
+            28px
+            18px;
     }
 
     .card h3{
+
         font-size:22px;
     }
 
     .card p{
+
         font-size:15px;
     }
 
-    .showcase-header{
-        font-size:25px;
+    .btn{
+
+        width:100%;
+
+        padding:15px 15px;
+    }
+
+    .video-list{
+
+        grid-template-columns:1fr;
+    }
+
+    .items-grid{
+
+        grid-template-columns:1fr 1fr;
+    }
+
+    .item-box{
+
+        padding:20px 12px;
+    }
+
+    .item-icon{
+
+        font-size:35px;
+    }
+
+    .item-box h4{
+
+        font-size:16px;
+    }
+
+    .item-box p{
+
+        font-size:13px;
     }
 }
+
+@media(max-width:360px){
+
+    .items-grid{
+
+        grid-template-columns:1fr;
+    }
+}
+
 </style>
+
 </head>
+
 
 <body>
 
+
+<!-- =========================
+     BACKGROUND
+========================= -->
+
 <canvas id="bgCanvas"></canvas>
 
-<!-- MAIN PAGE -->
+
+<!-- =========================
+     MAIN PAGE
+========================= -->
+
 <div class="container" id="mainPage">
 
-    <h1 class="store-title">محمد فون</h1>
+    <h1 class="store-title">
+        محمد فون
+    </h1>
 
     <div class="store-subtitle">
         MOHAMMAD PHONE
     </div>
 
+
     <div class="card">
 
-        <h3>بەخێربێن بۆ محمد فون</h3>
+        <h3>
+            بەخێربێن بۆ محمد فون 📱
+        </h3>
 
         <p>
-            شوێنی متمانەپێکراوی تۆ بۆ ئەکسسواراتی مۆبایل،
-            خزمەتگوزارییەکانی سۆفتوێر و چارەسەرکردنی کێشەکانی مۆبایل
+            هەموو ئەو شتانەی پەیوەندی بە مۆبایلەوە هەیە
+            لێرە بەردەستە؛
+            ئەکسسواراتی جوان، خزمەتگوزاریی سۆفتوێر
+            و چارەسەرکردنی کێشەکانی مۆبایل
             بە کوالێتی بەرز و نرخێکی گونجاو.
         </p>
 
-        <button class="btn" onclick="openShowcase()">
+        <button
+            class="btn"
+            onclick="openShowcase()">
+
             ✨ بینینی ئەکسسوارات و ڤیدیۆکان
+
         </button>
 
     </div>
@@ -314,268 +767,675 @@ body{
 </div>
 
 
-<!-- SHOWCASE PAGE -->
+
+<!-- =========================
+     SHOWCASE PAGE
+========================= -->
+
 <div id="showcasePage">
 
 <div class="showcase-content">
+
 
     <h2 class="showcase-header">
         محمد فون
     </h2>
 
     <p class="showcase-description">
-        ئەکسسوارات • سۆفتوێر • خزمەتگوزاری مۆبایل
+        ئەکسسواراتی مۆبایل • سۆفتوێر • خزمەتگوزاری
     </p>
 
 
-    <!-- VIDEOS -->
+
+    <!-- =========================
+         VIDEOS
+    ========================= -->
+
     <h3 class="section-title">
         🎬 ڤیدیۆکان
     </h3>
 
+
     <div class="video-list">
 
+
+        <!-- VIDEO 1 -->
+
         <div class="video-card">
 
-            <video controls playsinline muted loop>
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-hands-holding-smartphones-with-neon-lights-41584-large.mp4" type="video/mp4">
+            <video
+                autoplay
+                muted
+                loop
+                playsinline
+                webkit-playsinline
+                preload="auto">
+
+                <source
+                    src="https://assets.mixkit.co/videos/preview/mixkit-hands-holding-smartphones-with-neon-lights-41584-large.mp4"
+                    type="video/mp4">
+
             </video>
 
             <div class="video-info">
-                <h4>📱 جیهانی مۆبایل</h4>
+
+                <h4>
+                    📱 جیهانی مۆبایل
+                </h4>
+
                 <p>
-                    جوانترین ڤیدیۆکان لەسەر مۆبایل و ئەکسسوارات.
+                    نوێترین دیزاین و جۆرەکانی مۆبایل
+                    و ئەکسسوارات.
                 </p>
+
             </div>
 
         </div>
 
 
+
+        <!-- VIDEO 2 -->
+
         <div class="video-card">
 
-            <video controls playsinline muted loop>
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-smartphone-with-a-colorful-screen-3984-large.mp4" type="video/mp4">
+            <video
+                autoplay
+                muted
+                loop
+                playsinline
+                webkit-playsinline
+                preload="auto">
+
+                <source
+                    src="https://assets.mixkit.co/videos/preview/mixkit-smartphone-with-a-colorful-screen-3984-large.mp4"
+                    type="video/mp4">
+
             </video>
 
             <div class="video-info">
-                <h4>✨ ئەکسسواراتی نوێ</h4>
+
+                <h4>
+                    ✨ ئەکسسواراتی نوێ
+                </h4>
+
                 <p>
-                    دیزاین و ئەکسسواراتی مۆدێرن بۆ مۆبایلەکان.
+                    جوانترین ئەکسسوارات بۆ مۆبایلەکان.
                 </p>
+
             </div>
 
         </div>
 
 
+
+        <!-- VIDEO 3 -->
+
         <div class="video-card">
 
-            <video controls playsinline muted loop>
-                <source src="https://assets.mixkit.co/videos/preview/mixkit-mobile-phone-in-a-dark-room-34335-large.mp4" type="video/mp4">
+            <video
+                autoplay
+                muted
+                loop
+                playsinline
+                webkit-playsinline
+                preload="auto">
+
+                <source
+                    src="https://assets.mixkit.co/videos/preview/mixkit-mobile-phone-in-a-dark-room-34335-large.mp4"
+                    type="video/mp4">
+
             </video>
 
             <div class="video-info">
-                <h4>🔥 تەکنەلۆژیای مۆبایل</h4>
+
+                <h4>
+                    🔥 تەکنەلۆژیای مۆبایل
+                </h4>
+
                 <p>
-                    نوێترین شێواز و تەکنەلۆژیای مۆبایل.
+                    تەکنەلۆژیای نوێ و شێوازی مۆدێرنی مۆبایل.
                 </p>
+
             </div>
 
         </div>
+
 
     </div>
 
 
-    <!-- ACCESSORIES -->
+
+    <!-- =========================
+         ACCESSORIES
+    ========================= -->
+
     <h3 class="section-title">
         🛍️ ئەکسسوارات
     </h3>
 
+
     <div class="items-grid">
 
-        <div class="item-box">
-            <div class="item-icon">📱</div>
-            <h4>کەڤەر و شلێف</h4>
-            <p>
-                کەڤەر و شلێفی جوان و بەهێز بۆ جۆرە جۆرە مۆبایل.
-            </p>
-        </div>
 
         <div class="item-box">
-            <div class="item-icon">🔋</div>
-            <h4>پاتری و شارژەر</h4>
+
+            <div class="item-icon">
+                📱
+            </div>
+
+            <h4>
+                کەڤەر و شلێف
+            </h4>
+
             <p>
-                شارژەر و پاتری بە کوالێتی بەرز بۆ بەکارهێنانی ڕۆژانە.
+                کەڤەر و شلێفی جوان و بەهێز
+                بۆ جۆرە جۆرە مۆبایل.
             </p>
+
         </div>
 
-        <div class="item-box">
-            <div class="item-icon">🎧</div>
-            <h4>هێدفۆن و سپیکەر</h4>
-            <p>
-                هێدفۆن و سپیکەری مۆدێرن بۆ گۆرانی و ڤیدیۆ.
-            </p>
-        </div>
 
         <div class="item-box">
-            <div class="item-icon">⚡</div>
-            <h4>کابڵ و ئەداپتەر</h4>
+
+            <div class="item-icon">
+                🔋
+            </div>
+
+            <h4>
+                پاتری و شارژەر
+            </h4>
+
             <p>
-                جۆرە جۆرە کابڵ و ئەداپتەری شارژکردن.
+                شارژەر و پاتری بە کوالێتی بەرز
+                بۆ بەکارهێنانی ڕۆژانە.
             </p>
+
         </div>
+
+
+        <div class="item-box">
+
+            <div class="item-icon">
+                🎧
+            </div>
+
+            <h4>
+                هێدفۆن و سپیکەر
+            </h4>
+
+            <p>
+                هێدفۆن و سپیکەری مۆدێرن
+                بۆ گۆرانی و ڤیدیۆ.
+            </p>
+
+        </div>
+
+
+        <div class="item-box">
+
+            <div class="item-icon">
+                ⚡
+            </div>
+
+            <h4>
+                کابڵ و ئەداپتەر
+            </h4>
+
+            <p>
+                جۆرە جۆرە کابڵ و ئەداپتەری
+                شارژکردن.
+            </p>
+
+        </div>
+
 
     </div>
 
 
-    <!-- SOFTWARE -->
+
+    <!-- =========================
+         SERVICES
+    ========================= -->
+
     <h3 class="section-title">
         💻 خزمەتگوزارییەکان
     </h3>
 
+
     <div class="items-grid">
 
-        <div class="item-box">
-            <div class="item-icon">🛠️</div>
-            <h4>چاککردنی سۆفتوێر</h4>
-            <p>
-                چارەسەرکردنی کێشەکانی سۆفتوێر بە شێوازی پیشەیی.
-            </p>
-        </div>
 
         <div class="item-box">
-            <div class="item-icon">🔧</div>
-            <h4>خزمەتگوزاری مۆبایل</h4>
+
+            <div class="item-icon">
+                🛠️
+            </div>
+
+            <h4>
+                چاککردنی سۆفتوێر
+            </h4>
+
             <p>
-                خزمەتگوزارییە جۆراوجۆرەکانی مۆبایل بە کوالێتی بەرز.
+                چارەسەرکردنی کێشەکانی سۆفتوێر
+                بە شێوازی پیشەیی.
             </p>
+
         </div>
+
+
+        <div class="item-box">
+
+            <div class="item-icon">
+                🔧
+            </div>
+
+            <h4>
+                خزمەتگوزاری مۆبایل
+            </h4>
+
+            <p>
+                خزمەتگوزارییە جۆراوجۆرەکانی
+                مۆبایل بە کوالێتی بەرز.
+            </p>
+
+        </div>
+
 
     </div>
 
 
-    <!-- CONTACT -->
+
+    <!-- =========================
+         CONTACT
+    ========================= -->
+
     <div class="contact-box">
 
-        <h3>📞 پەیوەندیمان پێوە بکە</h3>
+        <h3>
+            📞 پەیوەندیمان پێوە بکە
+        </h3>
 
-        <p style="color:#aaa;margin-bottom:15px;">
-            بۆ زانیاری زیاتر و نرخەکان پەیوەندیمان پێوە بکە.
+        <p>
+            بۆ زانیاری زیاتر، نرخ و داواکاری
+            پەیوەندیمان پێوە بکە.
         </p>
 
-        <a href="tel:+9647500000000" class="contact-btn">
+        <!--
+        لێرە ژمارەی ڕاستەقینەی خۆت دابنێ.
+        -->
+
+        <a
+            href="tel:+9647500000000"
+            class="contact-btn">
+
             📞 پەیوەندی
+
         </a>
 
-        <a href="https://wa.me/9647500000000" class="contact-btn">
+
+        <a
+            href="https://wa.me/9647500000000"
+            class="contact-btn">
+
             💬 WhatsApp
+
         </a>
 
     </div>
 
 
-    <button class="back-btn" onclick="closeShowcase()">
+
+    <!-- BACK -->
+
+    <button
+        class="back-btn"
+        onclick="closeShowcase()">
+
         ← گەڕانەوە بۆ پەڕەی سەرەکی
+
     </button>
 
+
 </div>
+
 </div>
+
 
 
 <script>
 
-/* PAGE NAVIGATION */
+/* =====================================================
+   PAGE NAVIGATION
+===================================================== */
 
 function openShowcase(){
 
-    document.getElementById("mainPage").style.display="none";
+    const mainPage =
+        document.getElementById("mainPage");
 
-    document.getElementById("showcasePage").style.display="block";
+    const showcasePage =
+        document.getElementById("showcasePage");
+
+
+    mainPage.style.display = "none";
+
+    showcasePage.style.display = "block";
+
+
+    /*
+       کەمێک دواخستن دەدەین بۆ ئەوەی Safari
+       ڤیدیۆکان بە تەواوی بخوێنێتەوە.
+    */
+
+    setTimeout(function(){
+
+        playAllVideos();
+
+    },150);
 
 }
+
+
+/* =====================================================
+   CLOSE SHOWCASE
+===================================================== */
 
 function closeShowcase(){
 
-    document.getElementById("showcasePage").style.display="none";
-
-    document.getElementById("mainPage").style.display="block";
-
-}
-
-
-/* GOLD PARTICLES */
-
-const canvas=document.getElementById("bgCanvas");
-
-const ctx=canvas.getContext("2d");
-
-let particles=[];
-
-function resizeCanvas(){
-
-    canvas.width=window.innerWidth;
-    canvas.height=window.innerHeight;
-
-}
-
-resizeCanvas();
-
-window.addEventListener("resize",resizeCanvas);
+    const videos =
+        document.querySelectorAll(
+            "#showcasePage video"
+        );
 
 
-for(let i=0;i<70;i++){
+    videos.forEach(function(video){
 
-    particles.push({
+        video.pause();
 
-        x:Math.random()*canvas.width,
-
-        y:Math.random()*canvas.height,
-
-        r:Math.random()*3+1,
-
-        speed:Math.random()*1.5+.3,
-
-        opacity:Math.random()*.7+.2
+        video.currentTime = 0;
 
     });
 
+
+    document.getElementById(
+        "showcasePage"
+    ).style.display = "none";
+
+
+    document.getElementById(
+        "mainPage"
+    ).style.display = "flex";
+
 }
 
 
-function animate(){
+/* =====================================================
+   AUTOPLAY ALL VIDEOS
+===================================================== */
 
-    ctx.clearRect(0,0,canvas.width,canvas.height);
+function playAllVideos(){
 
-    particles.forEach(p=>{
+    const videos =
+        document.querySelectorAll(
+            "#showcasePage video"
+        );
 
-        ctx.globalAlpha=p.opacity;
 
-        ctx.fillStyle="#ffd700";
+    videos.forEach(function(video){
 
-        ctx.beginPath();
+        /*
+           دڵنیابوون لە muted بۆ Safari
+        */
 
-        ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        video.muted = true;
 
-        ctx.fill();
+        video.defaultMuted = true;
 
-        p.y+=p.speed;
+        video.setAttribute(
+            "muted",
+            ""
+        );
 
-        if(p.y>canvas.height){
+        video.setAttribute(
+            "playsinline",
+            ""
+        );
 
-            p.y=-5;
+        video.setAttribute(
+            "webkit-playsinline",
+            ""
+        );
 
-            p.x=Math.random()*canvas.width;
+        video.setAttribute(
+            "autoplay",
+            ""
+        );
+
+
+        /*
+           خۆکارانە Play
+        */
+
+        const promise =
+            video.play();
+
+
+        if(promise !== undefined){
+
+            promise.catch(function(){
+
+                /*
+                   هەندێک جار Safari
+                   autoplay ـی ڤیدیۆیەکی
+                   لە دوای interaction ـەوە
+                   ڕێگە دەدات.
+                */
+
+            });
 
         }
 
     });
 
-    ctx.globalAlpha=1;
+}
 
-    requestAnimationFrame(animate);
+
+/* =====================================================
+   TRY AUTOPLAY WHEN PAGE LOADS
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        playAllVideos();
+
+    }
+);
+
+
+/* =====================================================
+   SAFARI / IPHONE SUPPORT
+===================================================== */
+
+document.addEventListener(
+    "visibilitychange",
+    function(){
+
+        if(
+            !document.hidden &&
+            document.getElementById(
+                "showcasePage"
+            ).style.display === "block"
+        ){
+
+            playAllVideos();
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   GOLD PARTICLES
+===================================================== */
+
+const canvas =
+    document.getElementById(
+        "bgCanvas"
+    );
+
+const ctx =
+    canvas.getContext("2d");
+
+
+let particles = [];
+
+
+function resizeCanvas(){
+
+    const dpr =
+        Math.min(
+            window.devicePixelRatio || 1,
+            2
+        );
+
+
+    canvas.width =
+        window.innerWidth * dpr;
+
+    canvas.height =
+        window.innerHeight * dpr;
+
+
+    canvas.style.width =
+        window.innerWidth + "px";
+
+    canvas.style.height =
+        window.innerHeight + "px";
+
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
 
 }
 
-animate();
+
+resizeCanvas();
+
+
+window.addEventListener(
+    "resize",
+    resizeCanvas
+);
+
+
+/* CREATE PARTICLES */
+
+for(
+    let i = 0;
+    i < 75;
+    i++
+){
+
+    particles.push({
+
+        x:
+            Math.random()
+            * window.innerWidth,
+
+        y:
+            Math.random()
+            * window.innerHeight,
+
+        r:
+            Math.random()
+            * 2.8 + 0.8,
+
+        speed:
+            Math.random()
+            * 1.4 + 0.3,
+
+        opacity:
+            Math.random()
+            * 0.65 + 0.2
+
+    });
+
+}
+
+
+/* ANIMATION */
+
+function animateParticles(){
+
+    ctx.clearRect(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
+
+
+    particles.forEach(function(p){
+
+        ctx.globalAlpha =
+            p.opacity;
+
+        ctx.fillStyle =
+            "#ffd700";
+
+
+        ctx.beginPath();
+
+        ctx.arc(
+            p.x,
+            p.y,
+            p.r,
+            0,
+            Math.PI * 2
+        );
+
+        ctx.fill();
+
+
+        p.y += p.speed;
+
+
+        if(
+            p.y >
+            window.innerHeight + 5
+        ){
+
+            p.y = -5;
+
+            p.x =
+                Math.random()
+                * window.innerWidth;
+
+        }
+
+    });
+
+
+    ctx.globalAlpha = 1;
+
+
+    requestAnimationFrame(
+        animateParticles
+    );
+
+}
+
+
+animateParticles();
 
 </script>
 
