@@ -428,6 +428,115 @@ body{
 
 
 /* =========================
+   PHOTO GALLERY SECTION (UPDATED)
+========================= */
+
+.photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+}
+
+.photo-card {
+    background: linear-gradient(145deg, #171717, #0d0d0d);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-bottom: 15px;
+}
+
+.photo-card:hover {
+    transform: translateY(-4px);
+    border-color: #ffd700;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.photo-info {
+    padding: 15px;
+    text-align: right;
+}
+
+.photo-info h4 {
+    color: #ffd700;
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.photo-info .poem {
+    color: #ccc;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.photo-info .note {
+    color: #aaa;
+    font-size: 12px;
+    margin-bottom: 10px;
+    background: rgba(255, 215, 0, 0.05);
+    padding: 6px;
+    border-radius: 8px;
+    border-right: 2px solid #ffd700;
+}
+
+.price-tag {
+    color: #ffd700;
+    font-weight: bold;
+    font-size: 15px;
+    margin-bottom: 12px;
+}
+
+.order-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    margin-top: 5px;
+}
+
+.qty-input {
+    width: 60px;
+    padding: 7px;
+    background: #222;
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    color: #fff;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.order-item-btn {
+    background: #ffd700;
+    color: #000;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.order-item-btn:hover {
+    background: #ffea70;
+}
+
+
+/* =========================
    ACCESSORIES
 ========================= */
 
@@ -865,6 +974,34 @@ body{
 
 
     <!-- =========================
+         PHOTO GALLERY (بەشی وێنە نوێیەکە با نرخ و حسابکردنی خۆکار)
+    ========================= -->
+
+    <h3 class="section-title">
+        🖼️ پێشانگای بەرهەمەکان
+    </h3>
+
+    <div class="photo-grid">
+
+        <div class="photo-card">
+            <img src="https://cdn.phototourl.com/free/2026-09-05-6b3629c8-c712-48c0-b3ea-852082623577.jpg" alt="بەرهەمی محمد فون">
+            <div class="photo-info">
+                <h4>بەرهەمی تایبەتی محمد فون</h4>
+                <p class="poem">"جوانی و کوالێتی لە یەک شوێن، بۆ مۆبایلەکەت جوانترین هەڵبژاردە"</p>
+                <div class="note">تێبینی: کوالێتی بەرز و گەرەنتی کراو</div>
+                <div class="price-tag" id="priceDisplay1">نرخ: ١٢,٠٠٠ دینار</div>
+            </div>
+            <div class="order-row">
+                <input type="number" id="qty1" class="qty-input" value="1" min="1" max="50" oninput="updatePrice(1, 12000)">
+                <button class="order-item-btn" onclick="orderItem('بەرهەمی تایبەتی محمد فون', 'qty1', 12000)">داواکردن 💬</button>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- =========================
          ACCESSORIES
     ========================= -->
 
@@ -1068,6 +1205,28 @@ body{
 
 
 <script>
+
+/* =====================================================
+   AUTOMATIC PRICE CALCULATION & WHATSAPP ORDER
+===================================================== */
+
+function updatePrice(id, unitPrice) {
+    let qty = document.getElementById('qty' + id).value;
+    if (qty < 1) qty = 1;
+    let total = qty * unitPrice;
+    document.getElementById('priceDisplay' + id).innerText = "نرخ: " + total.toLocaleString() + " دینار";
+}
+
+function orderItem(itemName, qtyId, unitPrice) {
+    const qty = document.getElementById(qtyId).value;
+    const total = qty * unitPrice;
+    const phone = "9647508484951";
+    
+    const message = `سڵاو، من دەمەوێت ئەم بەرهەمە داوا بکەم:\n\n📦 بەرهەم: ${itemName}\n🔢 ژمارەی دانە: ${qty}\n💰 کۆی گشتی نرخ: ${total.toLocaleString()} دینار\n\nچاوەڕێی وەڵامم. سوپاس!`;
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
+}
+
 
 /* =====================================================
    MUSIC CONTROL
