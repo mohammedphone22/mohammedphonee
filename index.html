@@ -26,6 +26,7 @@
         "Segoe UI",
         Tahoma,
         sans-serif;
+    scroll-behavior: smooth;
 }
 
 html,
@@ -56,7 +57,7 @@ body{
 
 
 /* =========================
-   MAIN PAGE
+   WELCOME PAGE (PAGE 1)
 ========================= */
 
 .container{
@@ -205,6 +206,9 @@ body{
     transition:.3s;
 
     -webkit-tap-highlight-color:transparent;
+    text-decoration:none;
+    display:inline-block;
+    margin-top: 10px;
 }
 
 .btn:hover{
@@ -222,7 +226,7 @@ body{
 
 
 /* =========================
-   SHOWCASE PAGE
+   SHOWCASE PAGE (PAGE 2)
 ========================= */
 
 #showcasePage{
@@ -253,7 +257,7 @@ body{
         #070707;
 
     padding:
-        max(30px, env(safe-area-inset-top))
+        max(20px, env(safe-area-inset-top))
         18px
         max(50px, env(safe-area-inset-bottom));
 }
@@ -265,6 +269,45 @@ body{
     max-width:850px;
 
     margin:auto;
+}
+
+
+/* =========================
+   STICKY NAVIGATION BAR (تسلسل)
+========================= */
+
+.sticky-nav {
+    position: sticky;
+    top: 15px;
+    z-index: 1000;
+    background: rgba(15, 15, 15, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    padding: 14px 18px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    border-radius: 20px;
+    margin: 15px 0 35px 0;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+.nav-link {
+    color: #ffd700;
+    background: rgba(255, 215, 0, 0.1);
+    border: 1px solid rgba(255, 215, 0, 0.4);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.nav-link:hover {
+    background: #ffd700;
+    color: #000;
 }
 
 
@@ -315,7 +358,7 @@ body{
     font-weight:800;
 
     margin:
-        30px 0
+        35px 0
         15px;
 
     padding-right:5px;
@@ -325,129 +368,26 @@ body{
 
 
 /* =========================
-   VIDEO GRID
-========================= */
-
-.video-list{
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(
-            auto-fit,
-            minmax(250px,1fr)
-        );
-
-    gap:20px;
-}
-
-
-/* =========================
-   VIDEO CARD
-========================= */
-
-.video-card{
-
-    overflow:hidden;
-
-    background:
-        linear-gradient(
-            145deg,
-            #191919,
-            #0d0d0d
-        );
-
-    border:1px solid rgba(255,215,0,.5);
-
-    border-radius:20px;
-
-    box-shadow:
-        0 12px 35px rgba(0,0,0,.55);
-
-    transition:.3s;
-}
-
-.video-card:hover{
-
-    transform:translateY(-4px);
-
-    border-color:#ffd700;
-
-    box-shadow:
-        0 15px 40px rgba(255,215,0,.15);
-}
-
-
-/* =========================
-   VIDEO
-========================= */
-
-.video-card video{
-
-    display:block;
-
-    width:100%;
-
-    aspect-ratio:16 / 9;
-
-    object-fit:cover;
-
-    background:#000;
-
-    -webkit-playsinline:true;
-
-}
-
-
-/* =========================
-   VIDEO INFO
-========================= */
-
-.video-info{
-
-    padding:16px;
-}
-
-.video-info h4{
-
-    color:#ffd700;
-
-    font-size:18px;
-
-    margin-bottom:7px;
-}
-
-.video-info p{
-
-    color:#aaa;
-
-    font-size:14px;
-
-    line-height:1.8;
-}
-
-
-/* =========================
-   PHOTO GALLERY SECTION (UPDATED)
+   PHOTO GALLERY SECTION (2 وێنە لە تەنیشت یەک)
 ========================= */
 
 .photo-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
 }
 
 .photo-card {
     background: linear-gradient(145deg, #171717, #0d0d0d);
     border: 1px solid rgba(255, 215, 0, 0.4);
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.45);
     transition: 0.3s;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-bottom: 15px;
+    padding-bottom: 12px;
 }
 
 .photo-card:hover {
@@ -457,78 +397,79 @@ body{
 
 .photo-card img {
     width: 100%;
-    height: 200px;
+    aspect-ratio: 9 / 16;
     object-fit: cover;
     border-bottom: 1px solid rgba(255, 215, 0, 0.2);
 }
 
 .photo-info {
-    padding: 15px;
+    padding: 12px;
     text-align: right;
 }
 
 .photo-info h4 {
     color: #ffd700;
-    font-size: 18px;
-    margin-bottom: 6px;
+    font-size: 15px;
+    margin-bottom: 5px;
 }
 
 .photo-info .poem {
     color: #ccc;
-    font-size: 13px;
+    font-size: 12px;
     font-style: italic;
-    line-height: 1.6;
-    margin-bottom: 10px;
+    line-height: 1.5;
+    margin-bottom: 8px;
 }
 
 .photo-info .note {
     color: #aaa;
-    font-size: 12px;
-    margin-bottom: 10px;
+    font-size: 11px;
+    margin-bottom: 8px;
     background: rgba(255, 215, 0, 0.05);
-    padding: 6px;
-    border-radius: 8px;
+    padding: 5px;
+    border-radius: 6px;
     border-right: 2px solid #ffd700;
 }
 
 .price-tag {
     color: #ffd700;
     font-weight: bold;
-    font-size: 15px;
-    margin-bottom: 12px;
+    font-size: 14px;
+    margin-bottom: 10px;
 }
 
 .order-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 15px;
-    margin-top: 5px;
+    padding: 0 12px;
+    gap: 5px;
 }
 
 .qty-input {
-    width: 60px;
-    padding: 7px;
+    width: 45px;
+    padding: 5px;
     background: #222;
     border: 1px solid rgba(255, 215, 0, 0.5);
     color: #fff;
-    border-radius: 8px;
+    border-radius: 6px;
     text-align: center;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 13px;
 }
 
 .order-item-btn {
     background: #ffd700;
     color: #000;
     border: none;
-    padding: 8px 16px;
-    border-radius: 20px;
+    padding: 6px 10px;
+    border-radius: 15px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
     cursor: pointer;
     transition: 0.3s;
     text-decoration: none;
+    white-space: nowrap;
 }
 
 .order-item-btn:hover {
@@ -537,7 +478,7 @@ body{
 
 
 /* =========================
-   ACCESSORIES
+   INFO / ACCESSORIES & SERVICES
 ========================= */
 
 .items-grid{
@@ -692,7 +633,7 @@ body{
     margin:
         35px
         auto
-        0;
+        20px;
 
     padding:13px 27px;
 
@@ -803,11 +744,6 @@ body{
         padding:15px 15px;
     }
 
-    .video-list{
-
-        grid-template-columns:1fr;
-    }
-
     .items-grid{
 
         grid-template-columns:1fr 1fr;
@@ -867,7 +803,7 @@ body{
 
 
 <!-- =========================
-     MAIN PAGE
+     WELCOME PAGE (PAGE 1)
 ========================= -->
 
 <div class="container" id="mainPage">
@@ -895,12 +831,11 @@ body{
             بە کوالێتی بەرز و نرخێکی گونجاو.
         </p>
 
+        <!-- دوگمەی چوونە ژوورەوە -->
         <button
             class="btn"
             onclick="openShowcase()">
-
-            ✨ بینینی ئەکسسوارات و ڤیدیۆکان
-
+            ✨ کلیک بکە بۆ چونه ژور
         </button>
 
     </div>
@@ -910,10 +845,17 @@ body{
 
 
 <!-- =========================
-     SHOWCASE PAGE
+     SHOWCASE PAGE (PAGE 2)
 ========================= -->
 
 <div id="showcasePage">
+
+    <!-- تسلسولی سەرەوە (Sticky Navigation) -->
+    <div class="sticky-nav">
+        <a href="#photoSection" class="nav-link">وێنێ من</a>
+        <a href="#infoSection" class="nav-link">مەعلومات</a>
+        <a href="#contactSection" class="nav-link">پەیوەندی کرن</a>
+    </div>
 
 <div class="showcase-content">
 
@@ -929,71 +871,42 @@ body{
 
 
     <!-- =========================
-         VIDEOS (meta.mp4)
+         1. PHOTO GALLERY (وێنەی بەرهەمەکان)
     ========================= -->
 
-    <h3 class="section-title">
-        🎬 ڤیدیۆی من
-    </h3>
-
-
-    <div class="video-list">
-
-        <div class="video-card">
-
-            <video
-                autoplay
-                muted
-                loop
-                playsinline
-                webkit-playsinline
-                preload="auto">
-
-                <source
-                    src="meta.mp4"
-                    type="video/mp4">
-
-            </video>
-
-            <div class="video-info">
-
-                <h4>
-                    📱 چاککردن و کارەکانی مۆبایل
-                </h4>
-
-                <p>
-                    نوێترین خزمەتگوزاری و کارەکانی مۆبایل لە محمد فون.
-                </p>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <!-- =========================
-         PHOTO GALLERY (بەشی وێنە نوێیەکە با نرخ و حسابکردنی خۆکار)
-    ========================= -->
-
-    <h3 class="section-title">
-        🖼️ پێشانگای بەرهەمەکان
+    <h3 class="section-title" id="photoSection">
+        🖼️ وێنێ من
     </h3>
 
     <div class="photo-grid">
 
+        <!-- وێنەی یەکەم (گۆڕدرا بۆ Anker Adapter 20W اصلي) -->
         <div class="photo-card">
-            <img src="https://cdn.phototourl.com/free/2026-09-05-6b3629c8-c712-48c0-b3ea-852082623577.jpg" alt="بەرهەمی محمد فون">
+            <img src="https://cdn.phototourl.com/free/2026-09-05-6b3629c8-c712-48c0-b3ea-852082623577.jpg" alt="وێنەی تایبەت">
             <div class="photo-info">
-                <h4>بەرهەمی تایبەتی محمد فون</h4>
-                <p class="poem">"جوانی و کوالێتی لە یەک شوێن، بۆ مۆبایلەکەت جوانترین هەڵبژاردە"</p>
+                <h4>Anker Adapter 20W اصلي</h4>
+                <p class="poem">"جوانی و کوالێتی لە یەک شوێن"</p>
                 <div class="note">تێبینی: کوالێتی بەرز و گەرەنتی کراو</div>
                 <div class="price-tag" id="priceDisplay1">نرخ: ١٢,٠٠٠ دینار</div>
             </div>
             <div class="order-row">
                 <input type="number" id="qty1" class="qty-input" value="1" min="1" max="50" oninput="updatePrice(1, 12000)">
-                <button class="order-item-btn" onclick="orderItem('بەرهەمی تایبەتی محمد فون', 'qty1', 12000)">داواکردن 💬</button>
+                <button class="order-item-btn" onclick="orderItem('Anker Adapter 20W اصلي', 'qty1', 12000)">داواکردن 💬</button>
+            </div>
+        </div>
+
+        <!-- وێنەی دووەم -->
+        <div class="photo-card">
+            <img src="https://cdn.phototourl.com/free/2026-09-05-86752de1-c63f-462b-a6a6-a3bada6159dc.jpg" alt="وێنەی نوێ">
+            <div class="photo-info">
+                <h4>لوازمی مۆبایل</h4>
+                <p class="poem">شحن كامل. 65w دريژ</p>
+                <div class="note">تێبینی: کوالێتی بەرز و ڕەسەن</div>
+                <div class="price-tag" id="priceDisplay2">نرخ: ٨,٠٠٠ دینار</div>
+            </div>
+            <div class="order-row">
+                <input type="number" id="qty2" class="qty-input" value="1" min="1" max="50" oninput="updatePrice(2, 8000)">
+                <button class="order-item-btn" onclick="orderItem('شحن كامل. 65w دريژ', 'qty2', 8000)">داواکردن 💬</button>
             </div>
         </div>
 
@@ -1002,150 +915,56 @@ body{
 
 
     <!-- =========================
-         ACCESSORIES
+         2. INFO SECTION (مەعلومات و خزمەتگوزاری)
     ========================= -->
 
-    <h3 class="section-title">
-        🛍️ ئەکسسوارات
+    <h3 class="section-title" id="infoSection">
+        ℹ️ مەعلومات و خزمەتگوزاری
     </h3>
 
+    <div class="items-grid" style="margin-bottom: 20px;">
+        <div class="item-box">
+            <div class="item-icon">📱</div>
+            <h4>کەڤەر و شلێف</h4>
+            <p>کەڤەر و شلێفی جوان و بەهێز بۆ جۆرە جۆرە مۆبایل.</p>
+        </div>
+        <div class="item-box">
+            <div class="item-icon">🔋</div>
+            <h4>پاتری و شارژەر</h4>
+            <p>شارژەر و پاتری بە کوالێتی بەرز بۆ بەکارهێنانی ڕۆژانە.</p>
+        </div>
+        <div class="item-box">
+            <div class="item-icon">🎧</div>
+            <h4>هێدفۆن و سپیکەر</h4>
+            <p>هێدفۆن و سپیکەری مۆدێرن بۆ گۆرانی و ڤیدیۆ.</p>
+        </div>
+        <div class="item-box">
+            <div class="item-icon">⚡</div>
+            <h4>کابڵ و ئەداپتەر</h4>
+            <p>جۆرە جۆرە کابڵ و ئەداپتەری شارژکردن.</p>
+        </div>
+    </div>
 
     <div class="items-grid">
-
-
         <div class="item-box">
-
-            <div class="item-icon">
-                📱
-            </div>
-
-            <h4>
-                کەڤەر و شلێف
-            </h4>
-
-            <p>
-                کەڤەر و شلێفی جوان و بەهێز
-                بۆ جۆرە جۆرە مۆبایل.
-            </p>
-
+            <div class="item-icon">🛠️</div>
+            <h4>چاککردنی سۆفتوێر</h4>
+            <p>چارەسەرکردنی کێشەکانی سۆفتوێر بە شێوازی پیشەیی.</p>
         </div>
-
-
         <div class="item-box">
-
-            <div class="item-icon">
-                🔋
-            </div>
-
-            <h4>
-                پاتری و شارژەر
-            </h4>
-
-            <p>
-                شارژەر و پاتری بە کوالێتی بەرز
-                بۆ بەکارهێنانی ڕۆژانە.
-            </p>
-
+            <div class="item-icon">🔧</div>
+            <h4>خزمەتگوزاری مۆبایل</h4>
+            <p>خزمەتگوزارییە جۆراوجۆرەکانی مۆبایل بە کوالێتی بەرز.</p>
         </div>
-
-
-        <div class="item-box">
-
-            <div class="item-icon">
-                🎧
-            </div>
-
-            <h4>
-                هێدفۆن و سپیکەر
-            </h4>
-
-            <p>
-                هێدفۆن و سپیکەری مۆدێرن
-                بۆ گۆرانی و ڤیدیۆ.
-            </p>
-
-        </div>
-
-
-        <div class="item-box">
-
-            <div class="item-icon">
-                ⚡
-            </div>
-
-            <h4>
-                کابڵ و ئەداپتەر
-            </h4>
-
-            <p>
-                جۆرە جۆرە کابڵ و ئەداپتەری
-                شارژکردن.
-            </p>
-
-        </div>
-
-
     </div>
 
 
 
     <!-- =========================
-         SERVICES
+         3. CONTACT SECTION (پەیوەندی کرن)
     ========================= -->
 
-    <h3 class="section-title">
-        💻 خزمەتگوزارییەکان
-    </h3>
-
-
-    <div class="items-grid">
-
-
-        <div class="item-box">
-
-            <div class="item-icon">
-                🛠️
-            </div>
-
-            <h4>
-                چاککردنی سۆفتوێر
-            </h4>
-
-            <p>
-                چارەسەرکردنی کێشەکانی سۆفتوێر
-                بە شێوازی پیشەیی.
-            </p>
-
-        </div>
-
-
-        <div class="item-box">
-
-            <div class="item-icon">
-                🔧
-            </div>
-
-            <h4>
-                خزمەتگوزاری مۆبایل
-            </h4>
-
-            <p>
-                خزمەتگوزارییە جۆراوجۆرەکانی
-                مۆبایل بە کوالێتی بەرز.
-            </p>
-
-        </div>
-
-
-    </div>
-
-
-
-    <!-- =========================
-         CONTACT
-    ========================= -->
-
-    <div class="contact-box">
+    <div class="contact-box" id="contactSection">
 
         <h3>
             📞 پەیوەندیمان پێوە بکە
@@ -1266,18 +1085,6 @@ function openShowcase(){
 
     showcasePage.style.display = "block";
 
-
-    /*
-       کەمێک دواخستن دەدەین بۆ ئەوەی Safari
-       ڤیدیۆکان بە تەواوی بخوێنێتەوە.
-    */
-
-    setTimeout(function(){
-
-        playAllVideos();
-
-    },150);
-
 }
 
 
@@ -1286,21 +1093,6 @@ function openShowcase(){
 ===================================================== */
 
 function closeShowcase(){
-
-    const videos =
-        document.querySelectorAll(
-            "#showcasePage video"
-        );
-
-
-    videos.forEach(function(video){
-
-        video.pause();
-
-        video.currentTime = 0;
-
-    });
-
 
     document.getElementById(
         "showcasePage"
@@ -1312,114 +1104,6 @@ function closeShowcase(){
     ).style.display = "flex";
 
 }
-
-
-/* =====================================================
-   AUTOPLAY ALL VIDEOS
-===================================================== */
-
-function playAllVideos(){
-
-    const videos =
-        document.querySelectorAll(
-            "#showcasePage video"
-        );
-
-
-    videos.forEach(function(video){
-
-        /*
-           دڵنیابوون لە muted بۆ Safari
-        */
-
-        video.muted = true;
-
-        video.defaultMuted = true;
-
-        video.setAttribute(
-            "muted",
-            ""
-        );
-
-        video.setAttribute(
-            "playsinline",
-            ""
-        );
-
-        video.setAttribute(
-            "webkit-playsinline",
-            ""
-        );
-
-        video.setAttribute(
-            "autoplay",
-            ""
-        );
-
-
-        /*
-           خۆکارانە Play
-        */
-
-        const promise =
-            video.play();
-
-
-        if(promise !== undefined){
-
-            promise.catch(function(){
-
-                /*
-                   هەندێک جار Safari
-                   autoplay ـی ڤیدیۆیەکی
-                   لە دوای interaction ـەوە
-                   ڕێگە دەدات.
-                */
-
-            });
-
-        }
-
-    });
-
-}
-
-
-/* =====================================================
-   TRY AUTOPLAY WHEN PAGE LOADS
-===================================================== */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function(){
-
-        playAllVideos();
-
-    }
-);
-
-
-/* =====================================================
-   SAFARI / IPHONE SUPPORT
-===================================================== */
-
-document.addEventListener(
-    "visibilitychange",
-    function(){
-
-        if(
-            !document.hidden &&
-            document.getElementById(
-                "showcasePage"
-            ).style.display === "block"
-        ){
-
-            playAllVideos();
-
-        }
-
-    }
-);
 
 
 /* =====================================================
