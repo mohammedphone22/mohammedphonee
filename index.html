@@ -368,7 +368,7 @@ body{
 
 
 /* =========================
-   PHOTO GALLERY SECTION (2 وێنە لە تەنیشت یەک)
+   PHOTO GALLERY SECTION
 ========================= */
 
 .photo-grid {
@@ -619,6 +619,137 @@ body{
     transform:translateY(-2px);
 
     background:#ffea70;
+}
+
+
+/* =========================
+   SHOPPING CART FLOATING BUTTON & MODAL
+========================= */
+
+.cart-float-btn {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    background: #ffd700;
+    color: #000;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 22px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    z-index: 9999;
+    box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.3s;
+}
+
+.cart-float-btn:hover {
+    transform: scale(1.05);
+    background: #ffea70;
+}
+
+.cart-badge {
+    background: #000;
+    color: #ffd700;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.cart-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 10000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    backdrop-filter: blur(5px);
+}
+
+.cart-content {
+    background: #151515;
+    border: 1px solid rgba(255, 215, 0, 0.5);
+    width: 100%;
+    max-width: 450px;
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+    text-align: right;
+    max-height: 80vh;
+    overflow-y: auto;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+    padding-bottom: 12px;
+    margin-bottom: 15px;
+}
+
+.cart-header h3 {
+    color: #ffd700;
+    font-size: 20px;
+}
+
+.close-cart {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.cart-items-list {
+    margin-bottom: 20px;
+}
+
+.cart-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    font-size: 14px;
+}
+
+.remove-item {
+    color: #ff4d4d;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.cart-total {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffd700;
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.checkout-btn {
+    width: 100%;
+    background: #25d366;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 25px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.checkout-btn:hover {
+    background: #20ba5a;
 }
 
 
@@ -891,7 +1022,7 @@ body{
             </div>
             <div class="order-row">
                 <input type="number" id="qty1" class="qty-input" value="1" min="1" max="50" oninput="updatePrice(1, 8000)">
-                <button class="order-item-btn" onclick="orderItem('شحن کامل. 65w دريژ', 'qty1', 8000)">داواکردن 💬</button>
+                <button class="order-item-btn" onclick="addToCart('شحن کامل. 65w دريژ', 'qty1', 8000)">زیادکردن بۆ سەبەتە 🛒</button>
             </div>
         </div>
 
@@ -906,7 +1037,7 @@ body{
             </div>
             <div class="order-row">
                 <input type="number" id="qty2" class="qty-input" value="1" min="1" max="50" oninput="updatePrice(2, 12000)">
-                <button class="order-item-btn" onclick="orderItem('Anker Adapter 20W اصلي', 'qty2', 12000)">داواکردن 💬</button>
+                <button class="order-item-btn" onclick="addToCart('Anker Adapter 20W اصلي', 'qty2', 12000)">زیادکردن بۆ سەبەتە 🛒</button>
             </div>
         </div>
 
@@ -1022,12 +1153,37 @@ body{
 </div>
 
 
+<!-- =========================
+     SHOPPING CART FLOATING BUTTON & MODAL
+========================= -->
+
+<button class="cart-float-btn" onclick="toggleCartModal()">
+    🛒 سەبەتە <span class="cart-badge" id="cartBadge">0</span>
+</button>
+
+<div class="cart-modal" id="cartModal">
+    <div class="cart-content">
+        <div class="cart-header">
+            <h3>سەبەتەی کڕین</h3>
+            <button class="close-cart" onclick="toggleCartModal()">&times;</button>
+        </div>
+        <div class="cart-items-list" id="cartItemsList">
+            <p style="text-align:center; color:#888;">سەبەتەکەت خاڵییە</p>
+        </div>
+        <div class="cart-total" id="cartTotal">کۆی گشتی: ٠ دینار</div>
+        <button class="checkout-btn" onclick="checkoutWhatsApp()">ناردنی داواکاری بۆ واتسአپ 💬</button>
+    </div>
+</div>
+
+
 
 <script>
 
 /* =====================================================
-   AUTOMATIC PRICE CALCULATION & WHATSAPP ORDER
+   SHOPPING CART LOGIC
 ===================================================== */
+
+let cart = [];
 
 function updatePrice(id, unitPrice) {
     let qty = document.getElementById('qty' + id).value;
@@ -1036,12 +1192,92 @@ function updatePrice(id, unitPrice) {
     document.getElementById('priceDisplay' + id).innerText = "نرخ: " + total.toLocaleString() + " دینار";
 }
 
-function orderItem(itemName, qtyId, unitPrice) {
-    const qty = document.getElementById(qtyId).value;
-    const total = qty * unitPrice;
-    const phone = "9647508484951";
+function addToCart(itemName, qtyId, unitPrice) {
+    let qty = parseInt(document.getElementById(qtyId).value);
+    if (qty < 1) qty = 1;
+
+    let existingItem = cart.find(item => item.name === itemName);
+    if (existingItem) {
+        existingItem.qty += qty;
+    } else {
+        cart.push({
+            name: itemName,
+            price: unitPrice,
+            qty: qty
+        });
+    }
+
+    updateCartUI();
     
-    const message = `سڵاو، من دەمەوێت ئەم بەرهەمە داوا بکەم:\n\n📦 بەرهەم: ${itemName}\n🔢 ژمارەی دانە: ${qty}\n💰 کۆی گشتی نرخ: ${total.toLocaleString()} دینار\n\nچاوەڕێی وەڵامم. سوپاس!`;
+    // نیشاندانی پەنجەرەی سەبەتە کاتێک شتێک زیاد دەکرێت
+    document.getElementById('cartModal').style.display = 'flex';
+}
+
+function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+}
+
+function updateCartUI() {
+    let badge = document.getElementById('cartBadge');
+    let list = document.getElementById('cartItemsList');
+    let totalDisplay = document.getElementById('cartTotal');
+
+    let totalCount = 0;
+    let totalPrice = 0;
+
+    if (cart.length === 0) {
+        list.innerHTML = '<p style="text-align:center; color:#888;">سەبەتەکەت خاڵییە</p>';
+    } else {
+        list.innerHTML = '';
+        cart.forEach((item, index) => {
+            totalCount += item.qty;
+            let itemTotal = item.price * item.qty;
+            totalPrice += itemTotal;
+
+            list.innerHTML += `
+                <div class="cart-item-row">
+                    <div>
+                        <strong>${item.name}</strong><br>
+                        <span style="color:#aaa; font-size:12px;">${item.qty} دانە × ${item.price.toLocaleString()} = ${itemTotal.toLocaleString()} دینار</span>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart(${index})">لادان</button>
+                </div>
+            `;
+        });
+    }
+
+    badge.innerText = totalCount;
+    totalDisplay.innerText = "کۆی گشتی: " + totalPrice.toLocaleString() + " دینار";
+}
+
+function toggleCartModal() {
+    let modal = document.getElementById('cartModal');
+    if (modal.style.display === 'flex') {
+        modal.style.display = 'none';
+    } else {
+        modal.style.display = 'flex';
+    }
+}
+
+function checkoutWhatsApp() {
+    if (cart.length === 0) {
+        alert('سەبەتەکەت خاڵییە!');
+        return;
+    }
+
+    const phone = "9647508484951";
+    let message = `سڵاو، من دەمەوێت ئەم بەرهەمانە داوا بکەم:\n\n`;
+
+    let totalPrice = 0;
+    cart.forEach((item, index) => {
+        let itemTotal = item.price * item.qty;
+        totalPrice += itemTotal;
+        message += `${index + 1}. ${item.name}\n   📌 ژمارە: ${item.qty} دانە\n   💰 نرخ: ${itemTotal.toLocaleString()} دینار\n\n`;
+    });
+
+    message += `━━━━━━━━━━━━━━━\n💰 کۆی گشتی گشتی: ${totalPrice.toLocaleString()} دینار\n\nچاوەڕێی وەڵامم. سوپاس!`;
+    
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${phone}?text=${encodedMessage}`, '_blank');
 }
